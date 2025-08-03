@@ -6,7 +6,7 @@ export default function Home() {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
         <Image 
-          source={require('../assets/images/react-logo.png')}
+          source={require('../../assets/images/react-logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
@@ -18,8 +18,7 @@ export default function Home() {
         <View style={styles.infoCard}>
           <Text style={styles.cardTitle}>📍 Lokasi</Text>
           <Text style={styles.cardText}>
-            Jl. Perintis Kemerdekaan KM.9, Tamalanrea Indah, 
-            Kec. Tamalanrea, Kota Makassar, Sulawesi Selatan 90245
+            Jl. Sultan Alauddin No.259, Gn. Sari, Kec. Rappocini, Kota Makassar, Sulawesi Selatan 90221
           </Text>
         </View>
 
@@ -27,7 +26,7 @@ export default function Home() {
           <Text style={styles.cardTitle}>🎓 Tentang UNISMUH</Text>
           <Text style={styles.cardText}>
             Universitas Muhammadiyah Makassar (UNISMUH) adalah perguruan tinggi swasta 
-            yang berdiri sejak tahun 1973. UNISMUH berkomitmen untuk menghasilkan 
+            yang berdiri sejak tahun 1963. UNISMUH berkomitmen untuk menghasilkan 
             lulusan yang berkualitas, berakhlak mulia, dan berwawasan keislaman.
           </Text>
         </View>
