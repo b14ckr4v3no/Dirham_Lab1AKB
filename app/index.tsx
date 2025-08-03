@@ -40,13 +40,33 @@ export default function Index() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Daftar Mahasiswa AKB</Text>
+      <Text style={styles.subtitle}>Dengan Aturan Indeks Khusus</Text>
       
-      {students.map((student, index) => (
-        <View key={index} style={styles.studentCard}>
-          <Text style={[styles.name, { fontFamily: student.font }]}>{student.name}</Text>
-          <Text style={styles.nim}>{student.nim}</Text>
-        </View>
-      ))}
+      {students.map((student, index) => {
+        // Aturan khusus untuk indeks rendah (counting backward)
+        const isLowIndex = index < 3; // 3 mahasiswa pertama
+        const displayIndex = isLowIndex ? students.length - index : index + 1;
+        const backgroundColor = isLowIndex ? '#e8f5e8' : 'white';
+        const borderColor = isLowIndex ? '#4CAF50' : '#ddd';
+        
+        return (
+          <View key={index} style={[styles.studentCard, { backgroundColor, borderColor, borderWidth: 2 }]}>
+            <View style={styles.cardHeader}>
+              <Text style={[styles.indexBadge, { backgroundColor: isLowIndex ? '#4CAF50' : '#2196F3' }]}>
+                {isLowIndex ? `${displayIndex} (Backward)` : displayIndex}
+              </Text>
+              {isLowIndex && <Text style={styles.specialLabel}>★ PRIORITAS</Text>}
+            </View>
+            <Text style={[styles.name, { fontFamily: student.font }]}>{student.name}</Text>
+            <Text style={styles.nim}>{student.nim}</Text>
+            {isLowIndex && (
+              <Text style={styles.explanation}>
+                Indeks {index + 1} → Counting Backward: {displayIndex}
+              </Text>
+            )}
+          </View>
+        );
+      })}
     </ScrollView>
   );
 }
@@ -65,8 +85,15 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
     color: '#333',
+  },
+  subtitle: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+    color: '#666',
+    fontStyle: 'italic',
   },
   studentCard: {
     backgroundColor: 'white',
@@ -82,6 +109,26 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  indexBadge: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: 'bold',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 15,
+    overflow: 'hidden',
+  },
+  specialLabel: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#4CAF50',
+  },
   name: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -92,5 +139,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#7f8c8d',
     fontWeight: '500',
+  },
+  explanation: {
+    fontSize: 12,
+    color: '#4CAF50',
+    fontStyle: 'italic',
+    marginTop: 5,
+    backgroundColor: '#f0f8f0',
+    padding: 5,
+    borderRadius: 5,
   },
 });
